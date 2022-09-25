@@ -1,27 +1,45 @@
 package api.dto;
 
-import groovy.util.logging.Log4j2;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.experimental.Accessors;
+import org.slotegrator.JsonAutoMappable;
 
 @Data
-@Log4j2
-@Accessors(chain = true)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CreatePlayerResponseDTO {
+public class CreatePlayerResponseDTO implements JsonAutoMappable {
 
+    @JsonProperty("id")
     private Integer id;
+
+    @JsonProperty("country_id")
     private Object countryId;
+
+    @JsonProperty("timezone_id")
     private Object timezoneId;
+
+    @JsonProperty("username")
     private String username;
+
+    @JsonProperty("email")
     private String email;
+
+    @JsonProperty("name")
     private String name;
+
+    @JsonProperty("surname")
     private String surname;
+
+    @JsonProperty("gender")
     private Object gender;
+
+    @JsonProperty("phone_number")
     private String phoneNumber;
+
+    @JsonProperty("birthdate")
     private Object birthdate;
+
+    @JsonProperty("bonuses_allowed")
     private Boolean bonusesAllowed;
+
+    @JsonProperty("is_verified")
     private Boolean isVerified;
 }

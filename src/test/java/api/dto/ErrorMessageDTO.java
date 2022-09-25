@@ -1,22 +1,24 @@
 package api.dto;
 
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.annotation.JsonNaming;
-import io.netty.channel.unix.Errors;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.experimental.Accessors;
-
-import java.util.List;
+import org.slotegrator.JsonAutoMappable;
 
 @Data
-@Accessors(chain = true)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ErrorMessageDTO {
+public class ErrorMessageDTO implements JsonAutoMappable {
 
-    private List<Errors> errors;
-
+    @JsonProperty("name")
     private String name;
+
+    @JsonProperty("field")
+    private String field;
+
+    @JsonProperty("message")
     private String message;
+
+    @JsonProperty("code")
     private String code;
+
+    @JsonProperty("status")
     private String status;
 }

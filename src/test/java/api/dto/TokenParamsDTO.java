@@ -1,19 +1,27 @@
 package api.dto;
 
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.experimental.Accessors;
+import org.slotegrator.JsonAutoMappable;
 
 @Data
-@Accessors(chain = true)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class TokenParamsDTO {
+public class TokenParamsDTO implements JsonAutoMappable {
 
+    @JsonProperty("grant_type")
     private String grantType;
+
+    @JsonProperty("scope")
     private String scope;
+
+    @JsonProperty("access_token")
     private String accessToken;
+
+    @JsonProperty("refresh_token")
     private String refreshToken;
+
+    @JsonProperty("token_type")
     private String tokenType;
+
+    @JsonProperty("expires_in")
     private String expiresIn;
 }

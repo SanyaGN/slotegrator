@@ -1,17 +1,23 @@
 package api.dto;
 
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import io.cucumber.core.internal.com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.slotegrator.JsonAutoMappable;
 
 @Data
 @Accessors(chain = true)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class GenerateTokenBodyDTO {
+public class GenerateTokenBodyDTO implements JsonAutoMappable {
 
+    @JsonProperty("scope")
     private String scope;
+
+    @JsonProperty("username")
     private String username;
+
+    @JsonProperty("password")
     private String password;
-    private String grandType;
+
+    @JsonProperty("grant_type")
+    private String grantType;
 }
