@@ -21,9 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CasinoApiSteps {
 
     private GenerateTokenBodyDTO tokenBody;
-    private GenerateTokenBodyDTO clientTokenBody;
     private TokenParamsDTO getToken;
-    private TokenParamsDTO getClientToken;
     private CreatePlayerBodyDTO createPlayerBody;
     private CreatePlayerResponseDTO createPlayerResponse;
     private CreatePlayerResponseDTO getPlayerResponse;
@@ -35,13 +33,13 @@ public class CasinoApiSteps {
     public void populateToken(TokenTypeEnum tokenType) {
         switch (tokenType) {
             case ACCESS_TOKEN:
+            case CLIENT_ACCESS_TOKEN:
                 assertThat(tokenBody).as("token body is not null").isNotNull();
                 getToken = new CasinoPlayerActions().populateToken(tokenBody);
                 break;
+            case INVALID_TOKEN:
+                break;
 
-            case CLIENT_ACCESS_TOKEN:
-                assertThat(clientTokenBody).as("token body is not null").isNotNull();
-                getClientToken = new CasinoPlayerActions().populateClientToken(clientTokenBody);
         }
     }
 
@@ -54,7 +52,7 @@ public class CasinoApiSteps {
     @Given("I generate client token request body")
     public void generateClientTokenBody() {
         assertThat(createPlayerBody).as("body is not null").isNotNull();
-        clientTokenBody = new GenerateTokenBodyDTO().setGrantType(PASSWORD.getGrantType())
+        tokenBody = new GenerateTokenBodyDTO().setGrantType(PASSWORD.getGrantType())
                 .setUsername(createPlayerBody.getUsername())
                 .setPassword(createPlayerBody.getPasswordChange());
     }
@@ -82,13 +80,13 @@ public class CasinoApiSteps {
     public void sendGetPlayerByIdRequest() {
         assertThat(createPlayerResponse).as("create player response is not null").isNotNull();
         getPlayerResponse = new CasinoPlayerActions()
-                .getPlayer(getClientToken.getAccessToken(), createPlayerResponse.getId());
+                .getPlayer(getToken.getAccessToken(), createPlayerResponse.getId());
     }
 
     @And("I send GET player request by different ID")
     public void sendGetPlayerByDifferentIdRequest() {
         error = new CasinoPlayerActions()
-                .getInvalidPlayer(getClientToken.getAccessToken());
+                .getInvalidPlayer(getToken.getAccessToken());
     }
 
     @Then("I validate get player response")

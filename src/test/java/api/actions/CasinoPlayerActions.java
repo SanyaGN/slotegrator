@@ -36,19 +36,7 @@ public class CasinoPlayerActions {
         response =  requestSpec()
                 .auth().preemptive().basic(BASIC_AUTH_USERNAME_PARAM, BASIC_AUTH_PASSWORD_PARAM).request()
                 .body(requestBody)
-                .basePath(CasinoPlayerActions.GENERATE_TOKEN_URL).log().all()
-                .when().post()
-                .then().log().all()
-                .statusCode((SC_OK))
-                .extract();
-        return response.response().body().as(TokenParamsDTO.class);
-    }
-
-    public TokenParamsDTO populateClientToken(GenerateTokenBodyDTO requestBody) {
-        response =  requestSpec()
-                .auth().preemptive().basic(BASIC_AUTH_USERNAME_PARAM, BASIC_AUTH_PASSWORD_PARAM).request()
-                .body(requestBody)
-                .basePath(CasinoPlayerActions.GENERATE_TOKEN_URL).log().all()
+                .basePath(GENERATE_TOKEN_URL)
                 .when().post()
                 .then().log().all()
                 .statusCode((SC_OK))
@@ -60,7 +48,7 @@ public class CasinoPlayerActions {
         response = requestSpec()
                 .auth().oauth2(accessToken)
                 .body(body)
-                .basePath(CasinoPlayerActions.POST_CREATE_PLAYER_REQUEST_URL).log().all()
+                .basePath(POST_CREATE_PLAYER_REQUEST_URL)
                 .when().post()
                 .then().log().all()
                 .statusCode((SC_CREATED))
@@ -72,7 +60,7 @@ public class CasinoPlayerActions {
         response = requestSpec()
                 .auth().oauth2(accessToken)
                 .pathParam(PLAYER_ID_PARAM, id)
-                .basePath(CasinoPlayerActions.GET_PLAYER_REQUEST_URL).log().all()
+                .basePath(GET_PLAYER_REQUEST_URL)
                 .when().get()
                 .then().log().all()
                 .statusCode((SC_OK))
@@ -85,7 +73,7 @@ public class CasinoPlayerActions {
         response = requestSpec()
                 .auth().oauth2(accessToken)
                 .pathParam(PLAYER_ID_PARAM, invalidId)
-                .basePath(CasinoPlayerActions.GET_PLAYER_REQUEST_URL).log().all()
+                .basePath(GET_PLAYER_REQUEST_URL)
                 .when().get()
                 .then().log().all()
                 .statusCode((SC_NOT_FOUND))
@@ -94,11 +82,11 @@ public class CasinoPlayerActions {
     }
 
     private RequestSpecification requestSpec() {
-
         return given()
                 .headers(CONTENT_TYPE, ContentType.JSON)
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
-                .baseUri(CasinoPlayerActions.CASINO_SITE_HOST);
+                .baseUri(CASINO_SITE_HOST)
+                .log().all();
     }
 }

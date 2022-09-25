@@ -23,7 +23,7 @@ public class CasinoPlayersPage {
     }
 
     public void playersPageIsLoaded() {
-        new WebDriverWait(webDriver, Duration.ofSeconds(10)).until(ExpectedConditions
+        new WebDriverWait(webDriver, Duration.ofSeconds(5)).until(ExpectedConditions
                 .presenceOfElementLocated(By.xpath(PLAYERS_PAGE_HEADER_LOGO)));
     }
 

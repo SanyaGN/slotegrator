@@ -17,12 +17,14 @@ public class TestClass {
         System.setProperty(CHROME_DRIVER, DRIVER_PATH);
         webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return webDriver;
     }
 
     @After
     public void closeBrowser() {
-        webDriver.quit();
+        if (webDriver != null) {
+            webDriver.quit();
+        }
     }
 }

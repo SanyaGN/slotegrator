@@ -11,5 +11,4 @@ import com.fasterxml.jackson.annotation.JsonInclude;
         isGetterVisibility = JsonAutoDetect.Visibility.NONE
 )
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public interface JsonAutoMappable {
-}
+public interface JsonAutoMappable { }
